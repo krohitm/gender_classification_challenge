@@ -1,2 +1,2 @@
 # gender_classification_challenge
-This is a simple sci-kit learn demo using 4 random classification models and comparing their performance on the basis of accuracy. The program classifies the gender of a person on the basis of height, weight and shoe-size.
+This program uses 3 supervised learning models from sci-kit learn package to predcit the gender of a person, and tell the best model for our data.
