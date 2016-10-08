@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 
-## CHALLENGE - create 3 more classifiers...
+## Creating 3 classifiers
 clf1 = svm.SVC()
 clf2 = neighbors.KNeighborsClassifier()
 clf3 = MLPClassifier()
@@ -18,7 +18,7 @@ X = [[181, 80, 44], [177, 70, 43], [160, 60, 38], [154, 54, 37], [166, 65, 40], 
 Y = ['male', 'male', 'female', 'female', 'male', 'male', 'female', 'female', 'female', 'male', 'male']
 
 
-#CHALLENGE - ...and train them on our data
+#Training the classifiers on our data
 
 clf1 = clf1.fit(X, Y)
 clf2 = clf2.fit(X, Y)
@@ -42,7 +42,7 @@ for i in range(S):
     if prediction1[i] == Y[i]:              #checking accuracy on training data itself
         score1 += 1
 
-    prediction2.append(clf2.predict(X[i])) #prediction for nearest neibghors
+    prediction2.append(clf2.predict(X[i])) #prediction for K nearest neibghors
     if prediction2[i] == Y[i]:
         score2 += 1
 
@@ -50,6 +50,7 @@ for i in range(S):
     if prediction3[i] == Y[i]:
         score3 += 1
 
+##printing the best model
 scoreFinal = max(score1, score2, score3)
 if scoreFinal == score1:
     print "Support Vector Machine"
@@ -57,14 +58,3 @@ elif scoreFinal == score2:
     print "Nearest Neighbors"
 else:
     print "Neural Networks"
-
-#prediction = clf.predict([[190, 70, 43]])
-#prediction1 = clf1.predict([[190, 70, 43]])
-#prediction2 = clf2.predict([[190, 70, 43]])
-#prediction3 = clf3.predict([[190,70,43]])
-#CHALLENGE compare their reusults and print the best one!
-
-#print prediction
-#print prediction1
-#print prediction2
-#print prediction3
