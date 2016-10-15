@@ -1,15 +1,11 @@
 from sklearn import svm
 from sklearn import neighbors
 from sklearn.neural_network import MLPClassifier
+import numpy as np
+from sklearn.metrics import accuracy_score
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-
-
-## Creating 3 classifiers
-clf1 = svm.SVC()
-clf2 = neighbors.KNeighborsClassifier()
-clf3 = MLPClassifier()
 
 #[height, weight, shoe_size]
 X = [[181, 80, 44], [177, 70, 43], [160, 60, 38], [154, 54, 37], [166, 65, 40], [190, 90, 47], [175, 64, 39],
@@ -17,44 +13,31 @@ X = [[181, 80, 44], [177, 70, 43], [160, 60, 38], [154, 54, 37], [166, 65, 40], 
 
 Y = ['male', 'male', 'female', 'female', 'male', 'male', 'female', 'female', 'female', 'male', 'male']
 
+## Creating 3 classifiers
+clf_svm = svm.SVC()
+clf_KNN = neighbors.KNeighborsClassifier()
+clf_NN = MLPClassifier()
 
 #Training the classifiers on our data
 
-clf1 = clf1.fit(X, Y)
-clf2 = clf2.fit(X, Y)
-clf3 = clf3.fit(X, Y)
+clf_svm.fit(X, Y)
+clf_KNN.fit(X, Y)
+clf_NN.fit(X, Y)
 
-#initializing accuracy score
+#testing using the same data
+pred_svm = clf_svm.predict(X)
+acc_SVM = accuracy_score(Y, pred_svm)*100
+print "Accuracy for SVM: {}".format(acc_SVM)
 
-score1 = 0
-score2 = 0
-score3 = 0
+pred_KNN = clf_KNN.predict(X)
+acc_KNN = accuracy_score(Y, pred_KNN)*100
+print "Accuracy for KNN: {}".format(acc_KNN)
 
-S=len(X)
+pred_NN = clf_NN.predict(X)
+acc_NN = accuracy_score(Y, pred_NN)*100
+print "Accuracy for NN: {}".format(acc_NN)
 
-
-prediction1 = []
-prediction2 = []
-prediction3 = []
-
-for i in range(S):
-    prediction1.append(clf1.predict(X[i])) #prediction from SVM
-    if prediction1[i] == Y[i]:              #checking accuracy on training data itself
-        score1 += 1
-
-    prediction2.append(clf2.predict(X[i])) #prediction for K nearest neibghors
-    if prediction2[i] == Y[i]:
-        score2 += 1
-
-    prediction3.append(clf3.predict(X[i])) #prediction for neural networks
-    if prediction3[i] == Y[i]:
-        score3 += 1
-
-##printing the best model
-scoreFinal = max(score1, score2, score3)
-if scoreFinal == score1:
-    print "Support Vector Machine"
-elif scoreFinal == score2:
-    print "Nearest Neighbors"
-else:
-    print "Neural Networks"
+#choosing the most accurate classifier
+index = np.argmax([acc_SVM, acc_KNN, acc_NN])
+cls_dict = {0: 'SVM', 1: 'K Nearest Neighbors', 2: 'Neural Networks'}
+print "The best gender classifier was: {}".format(cls_dict[index])
